@@ -1,0 +1,6 @@
+model_checkpoint_path: "ResNet.model-15991"
+all_model_checkpoint_paths: "ResNet.model-15211"
+all_model_checkpoint_paths: "ResNet.model-15406"
+all_model_checkpoint_paths: "ResNet.model-15601"
+all_model_checkpoint_paths: "ResNet.model-15796"
+all_model_checkpoint_paths: "ResNet.model-15991"
