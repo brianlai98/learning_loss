@@ -49,8 +49,6 @@ def resblock(x_init, channels, is_training=True, use_bias=True, downsample=False
         x = relu(x)
         x = conv(x, channels, kernel=3, stride=1, use_bias=use_bias, scope='conv_1')
 
-
-
         return x + x_init
 
 def bottle_resblock(x_init, channels, is_training=True, use_bias=True, downsample=False, scope='bottle_resblock') :
@@ -145,4 +143,27 @@ def classification_loss(logit, label) :
     return loss, accuracy
 
 
+def loss_prediction_loss(logit, label, predicted_loss, batch_size):
+    logit_1, logit_2 = tf.split(logit, [batch_size//2, batch_size//2])
+    label_1, label_2 = tf.split(logit, [batch_size//2, batch_size//2])
+    
+    loss_1 = tf.nn.softmax_cross_entropy_with_logits_v2(labels=label_1, logits=logit_1)
+    loss_2 = tf.nn.softmax_cross_entropy_with_logits_v2(labels=label_2, logits=logit_2)
 
+    predicted_loss_1, predicted_loss_2 = tf.split(predicted_loss, [batch_size//2, batch_size//2])
+    
+    # if the predicted loss is 
+    loss_diff_sign = tf.sign(loss_1-loss_2)
+    predicted_loss_diff = tf.squeeze(predicted_loss_1 - predicted_loss_2)
+    predicted_loss_diff_sign = tf.sign(predicted_loss_diff)
+    
+    # maintains order if both positive or both negative
+    # 1 if order is preserved, -1 if order is NOT preserved
+    preserves_order = tf.multiply(loss_diff_sign, predicted_loss_diff_sign)
+   
+    # import pdb; pdb.set_trace()
+    indicator = tf.where(preserves_order < 0, tf.ones_like(loss_1), tf.zeros_like(loss_1))
+    loss = -1*indicator*predicted_loss_diff
+    loss = 2*tf.reduce_mean(loss)
+
+    return loss

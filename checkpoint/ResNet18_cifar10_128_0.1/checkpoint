@@ -1,0 +1,6 @@
+model_checkpoint_path: "ResNet.model-491"
+all_model_checkpoint_paths: "ResNet.model-463"
+all_model_checkpoint_paths: "ResNet.model-470"
+all_model_checkpoint_paths: "ResNet.model-477"
+all_model_checkpoint_paths: "ResNet.model-484"
+all_model_checkpoint_paths: "ResNet.model-491"
