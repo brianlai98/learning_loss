@@ -14,6 +14,19 @@ This repository provides a Tensorflow implementation of Learning Loss as describ
 > CVPR Oral, 2019.
 > [[Paper]](https://arxiv.org/abs/1905.03677)
 
+### Requirements
+The codebase is implemented in Python [TODO] package versions used for development.
+'''
+
+'''
+
+### Options
+
+### Model Options
+
+### Examples
+
+
 ## Summary
 ### dataset
 * [tiny_imagenet](https://tiny-imagenet.herokuapp.com/)
